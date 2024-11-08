@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nodedb-app-service # Unique name for the Service
+spec:
+  selector:
+    app: nodedb-app # Matches the labels in the Deployment's pods
+  ports:
+    - protocol: TCP
+      port: 80 # Port exposed by the Service (external port for Node.js)
+      targetPort: 3000 # Port inside the Node.js container
+      name: nodejs-port
+    - protocol: TCP
+      port: 8080 # Port exposed by the Service (external port for React)
+      targetPort: 5173 # Port inside the React (Vite) container (default port for Vite)
+      name: react-port
+  type: LoadBalancer # Exposes the service externally using a load balancer

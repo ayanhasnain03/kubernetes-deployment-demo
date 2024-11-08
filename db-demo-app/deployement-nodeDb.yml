@@ -1,0 +1,21 @@
+apiVersion: apps/v1 # Specifies the API version for the Deployment resource
+kind: Deployment # Defines this resource as a Deployment
+metadata:
+  name: my-nodedb-app # Unique name for the Deployment instance
+spec:
+  replicas: 2 # Desired number of Pods to run, maintaining high availability
+  selector:
+    matchLabels:
+      app: nodedb-app # Ensures Pods with this label are managed by this Deployment
+
+  template:
+    metadata:
+      labels:
+        app: nodedb-app # Label applied to each Pod managed by this Deployment
+
+    spec:
+      containers:
+        - name: nodedb-app # Container name within the Pod
+          image: ayanhasnain03/demo-multi-kube:latest # Container image for the Node.js app
+        - name: myreact # Container name for React app
+          image: ayanhasnain03/kubereact:1 # Container image for the React app
